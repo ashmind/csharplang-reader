@@ -1,0 +1,13 @@
+{
+    "include": ["src"],
+    "compilerOptions": {
+        "target": "ES2022",
+        "moduleResolution": "node",
+        "noEmit": true,
+        "strict": true,
+        "importsNotUsedAsValues": "error",
+        "allowSyntheticDefaultImports": true,
+        "esModuleInterop": true,
+        "jsx": "react"
+    }
+}

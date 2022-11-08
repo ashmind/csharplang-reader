@@ -1,0 +1,15 @@
+{
+  "root": true,
+  "ignorePatterns": [
+    "dist/"
+  ],
+  "parserOptions": {
+    "ecmaVersion": 2022,
+    "sourceType": "module"
+  },
+  "extends": "eslint:recommended",
+  "rules": {
+    "quotes": ["error", "single"],
+    "semi": "error"
+  }
+}
