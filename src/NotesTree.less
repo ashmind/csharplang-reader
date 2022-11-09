@@ -1,7 +1,24 @@
 .notesTree {
   padding: 10px;
-  background-color: #ccc;
+  border-right: 2px solid #ccc;
   overflow: auto;
+}
+
+.notesTree-node--unread {
+  font-weight: bold;
+  position: relative;
+
+  &::before {
+    content: '';
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    background-color: #aaa;
+    position: absolute;
+    margin-left: -30px;
+    margin-top: 8px;
+    border-radius: 50%;
+  }
 }
 
 .ant-tree-node-content-wrapper {
