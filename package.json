@@ -2,14 +2,17 @@
   "name": "csharplang-reader",
   "type": "module",
   "scripts": {
-    "build:dir": "shx mkdir -p ./dist",
-    "build:html": "shx cp ./src/index.html ./dist/index.html",
-    "build:ts": "esbuild ./src/index.tsx --bundle --format=esm --target=es2022 --outfile=./dist/index.js",
-    "build:less": "lessc ./src/index.less ./dist/index.css",
+    "build:dir": "shx mkdir -p ./_site",
+    "build:html": "shx cp ./src/index.html ./_site/index.html",
+    "build:ts": "esbuild ./src/index.tsx --bundle --minify --format=esm --target=es2022 --outfile=./_site/index.js",
+    "build:less": "lessc ./src/index.less ./_site/index.css",
     "build": "npm run build:dir && npm run build:html && npm run build:less && npm run build:ts",
     "watch:ts": "npm run build:ts -- --watch --sourcemap",
     "watch:less": "nodemon --ext less --exec npm run build:less",
-    "start": "npm run build && concurrently --kill-others \"npm run watch:less\" \"npm run watch:ts\" \"http-server ./dist\""
+    "start": "npm run build && concurrently --kill-others \"npm run watch:less\" \"npm run watch:ts\" \"http-server ./_site\""
+  },
+  "engines": {
+    "node": ">=16.14.2"
   },
   "license": "MIT",
   "dependencies": {
