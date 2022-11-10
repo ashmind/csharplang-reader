@@ -18,7 +18,7 @@ type MenuItemWithUnreadState = MenuItem & {
 };
 
 export const MainMenu: React.FC<MainMenuProps> = ({ onMeetingSelected }) => {
-  const [data, error, isLoading] = useOctokit(['tree'], o => o.rest.git.getTree({
+  const [data, isLoading] = useOctokit(['tree'], o => o.rest.git.getTree({
     ...REPO,
     tree_sha: 'main',
     recursive: 'true',

@@ -1,10 +1,10 @@
-import { useQuery } from "@tanstack/react-query";
-import { Octokit as OctokitCore } from "@octokit/core";
-import { paginateRest } from "@octokit/plugin-paginate-rest";
-import { restEndpointMethods } from "@octokit/plugin-rest-endpoint-methods";
-import { retry } from "@octokit/plugin-retry";
-import type { ThrottlingOptions } from "@octokit/plugin-throttling/dist-types/types.d";
-import { throttling } from "@octokit/plugin-throttling";
+import { useQuery } from '@tanstack/react-query';
+import { Octokit as OctokitCore } from '@octokit/core';
+import { paginateRest } from '@octokit/plugin-paginate-rest';
+import { restEndpointMethods } from '@octokit/plugin-rest-endpoint-methods';
+import { retry } from '@octokit/plugin-retry';
+import type { ThrottlingOptions } from '@octokit/plugin-throttling/dist-types/types.d';
+import { throttling } from '@octokit/plugin-throttling';
 
 type OctokitRequestOptions = {
   method: string;
@@ -45,12 +45,13 @@ export const useOctokit = <TResult>(
   query: (octokit: typeof octokitInstance) => Promise<TResult>,
   { enabled = true }: { enabled?: boolean } = {}
 ) => {
-  const { data, error, isLoading } = useQuery({
+  const { data, isLoading } = useQuery({
     queryKey: key,
     queryFn: () => query(octokitInstance),
     staleTime: Infinity,
-    enabled
+    enabled,
+    useErrorBoundary: true
   });
 
-  return [data, error, isLoading] as const;
+  return [data, isLoading] as const;
 };

@@ -1,5 +1,5 @@
-import { REPO } from "./repo";
-import { useOctokit } from "./useOctokit";
+import { REPO } from './repo';
+import { useOctokit } from './useOctokit';
 
 export const useGetContentAsHtml = (path: string | null) => useOctokit(['content', path ?? ''], async _ => {
   const response = await fetch(`https://api.github.com/repos/${REPO.owner}/${REPO.repo}/contents/${encodeURIComponent(path!)}`, {

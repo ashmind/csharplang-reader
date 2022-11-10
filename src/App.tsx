@@ -15,7 +15,9 @@ export const App: React.FC = () => {
     <ReadContextProvider>
       <Layout className="app-layout">
         <Sider className="app-sider" breakpoint="lg" collapsedWidth="0" width={300}>
-          <MainMenu onMeetingSelected={setSelectedMeetingPath} />
+          <Alert.ErrorBoundary>
+            <MainMenu onMeetingSelected={setSelectedMeetingPath} />
+          </Alert.ErrorBoundary>
         </Sider>
         <div className="app-content ant-layout-content">
           <Alert.ErrorBoundary>
