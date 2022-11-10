@@ -13,6 +13,7 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: '16.14.2'
+          cache: 'npm'
 
       - run: npm ci
       - run: npm run build
@@ -21,6 +22,8 @@ jobs:
 
   deploy:
     name: Deploy (GitHub Pages)
+    permissions:
+      pages: write
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
