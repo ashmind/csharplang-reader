@@ -10,12 +10,13 @@ const queryClient = new QueryClient();
 
 export const App: React.FC = () => {
   const [selectedMeetingPath, setSelectedMeetingPath] = useState<string | null>(null);
+  const [sliderCanCollapse, setSliderCanCollapse] = useState<boolean>(false);
   const [sliderCollapsed, setSliderCollapsed] = useState<boolean>(false);
 
   useEffect(() => {
-    if (selectedMeetingPath)
+    if (selectedMeetingPath && sliderCanCollapse)
       setSliderCollapsed(true);
-  }, [selectedMeetingPath]);
+  }, [selectedMeetingPath, sliderCanCollapse]);
 
   return <QueryClientProvider client={queryClient}>
     <RecoilRoot>
@@ -25,7 +26,10 @@ export const App: React.FC = () => {
                width={300}
                collapsedWidth={0}
                collapsed={sliderCollapsed}
-               onCollapse={collapsed => setSliderCollapsed(collapsed)}>
+               onCollapse={collapsed => {
+                  setSliderCanCollapse(true);
+                  setSliderCollapsed(collapsed);
+               }}>
           <div className="app-siderContent">
             <Alert.ErrorBoundary>
               <MainMenu onMeetingSelected={setSelectedMeetingPath} />
