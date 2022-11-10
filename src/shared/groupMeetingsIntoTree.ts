@@ -1,8 +1,15 @@
-import type { GroupNodeData, MeetingNodeData } from "./NodeData";
+import { GroupNodeData, MeetingNodeData, NODE_KEY_TOP_LDM, NODE_KEY_TOP_WGS } from './NodeData';
+
+const formatWorkingGroupTitle = (key: string) => {
+  return key
+    .replace(/(?:^|-)([a-z])/g, m => m.toUpperCase())
+    .replace(/-/g, ' ');
+};
 
 const getMeetingNode = (path: string): MeetingNodeData => {
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   const title = path
-    .match(/[^\/]+$/)![0]
+    .match(/[^/]+$/)![0]
     .replace(/\.md$/, '');
 
   return { path, title, type: 'meeting' };
@@ -24,21 +31,23 @@ export const groupMeetingsIntoTree = (allPaths: readonly string[]): readonly Gro
       key: `ldm-${year}`,
       title: year,
       children: getChildNodes(path),
-      type: 'group'
+      type: 'group',
+      subtype: 'sub-group'
     } as GroupNodeData));
 
   const workingGroupNodes = allPaths
     .flatMap(extractMatch(/^meetings\/working-groups\/([^/]+)$/))
     .map(([path, key]) => ({
       key: `wg-${key}`,
-      title: key,
+      title: formatWorkingGroupTitle(key),
       children: getChildNodes(path),
-      type: 'group'
-    } as GroupNodeData))
+      type: 'group',
+      subtype: 'sub-group'
+    } as GroupNodeData));
 
 
   return [
-    { key: "ldm", title: "LDM", children: ldmYearNodes, type: 'group' },
-    { key: "wgs", title: "Working Groups", children: workingGroupNodes, type: 'group' }
+    { key: NODE_KEY_TOP_LDM, title: 'LDM', children: ldmYearNodes, type: 'group', subtype: 'top-group' },
+    { key: NODE_KEY_TOP_WGS, title: 'Working Groups', children: workingGroupNodes, type: 'group', subtype: 'top-group' }
   ];
 };

@@ -1,5 +1,6 @@
 {
   "root": true,
+  "parser": "@typescript-eslint/parser",
   "ignorePatterns": [
     "dist/"
   ],
@@ -7,9 +8,23 @@
     "ecmaVersion": 2022,
     "sourceType": "module"
   },
-  "extends": "eslint:recommended",
+  "extends": [
+    "eslint:recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:react/recommended",
+    "plugin:react/jsx-runtime",
+    "plugin:react-hooks/recommended"
+  ],
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
+  },
   "rules": {
-    "quotes": ["error", "single"],
-    "semi": "error"
+    "quotes": "off",
+    "@typescript-eslint/quotes": ["error", "single"],
+
+    "semi": "off",
+    "@typescript-eslint/semi": "error"
   }
 }

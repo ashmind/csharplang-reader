@@ -1,7 +1,7 @@
-import React from "react";
-import { Button } from "antd";
+import type React from 'react';
+import { Button } from 'antd';
 import { ReadOutlined, ReadFilled } from '@ant-design/icons';
-import { useIsUnread, useMarkAsRead, useMarkAsUnread } from "./shared/readContext";
+import { useIsUnread, useMarkAsRead, useMarkAsUnread } from './shared/readContext';
 
 type NotesActionsProps = {
   meetingKey: string | null;
