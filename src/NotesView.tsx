@@ -1,5 +1,6 @@
 import { Empty, Spin } from "antd";
 import React, { useMemo } from "react";
+import { NotesActions } from "./NotesActions";
 import { useGetContentAsHtml } from "./shared/useGetContentAsHtml";
 
 type NotesViewProps = {
@@ -8,7 +9,6 @@ type NotesViewProps = {
 
 export const NotesView: React.FC<NotesViewProps> = ({ meetingPath }) => {
   const [html, error, isLoading] = useGetContentAsHtml(meetingPath);
-
   const htmlObject = useMemo(() => html ? ({ __html: html } as const) : null, [html]);
 
   if (!meetingPath)
@@ -17,5 +17,8 @@ export const NotesView: React.FC<NotesViewProps> = ({ meetingPath }) => {
   if (isLoading)
     return <Spin />;
 
-  return <div className="notesView" dangerouslySetInnerHTML={htmlObject!} />;
+  return <div className="notesView">
+    <NotesActions meetingKey={meetingPath} />
+    <div className="notesView-content" dangerouslySetInnerHTML={htmlObject!} />
+  </div> ;
 };

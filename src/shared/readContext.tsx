@@ -6,6 +6,9 @@ const readKeysFromStorage = JSON.parse(localStorage.getItem(STORAGE_KEY) ?? '[]'
 type UpdateAction = {
   type: 'markAsRead';
   key: string;
+} | {
+  type: 'markAsUnread';
+  key: string;
 };
 
 type ReadContextValue = {
@@ -25,6 +28,11 @@ export const useMarkAsRead = () => {
   return (key: string) => dispatchUpdate({ type: 'markAsRead', key });
 };
 
+export const useMarkAsUnread = () => {
+  const { dispatchUpdate } = useContext(ReadContext);
+  return (key: string) => dispatchUpdate({ type: 'markAsUnread', key });
+};
+
 type ReadContextProviderProps = {
   children: ReactNode;
 }
@@ -33,6 +41,9 @@ const keysReducer = (readKeys: ReadonlySet<string>, action: UpdateAction) => {
   return {
     markAsRead() {
       return new Set([...readKeys, action.key]);
+    },
+    markAsUnread() {
+      return new Set([...readKeys].filter(k => k !== action.key));
     }
   }[action.type]();
 };

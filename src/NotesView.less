@@ -1,6 +1,13 @@
 .notesView {
+  display: grid;
+  grid-template-rows: min-content 1fr;
+  border-left: 2px solid #ccc;
+}
+
+.notesView-content {
   padding: 10px;
   overflow: auto;
+  box-shadow: inset 0px 3px 5px -3px rgb(0 0 0 / 10%);
 
   [aria-hidden="true"] {
     display: none;
