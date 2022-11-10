@@ -4,7 +4,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { MainMenu } from './MainMenu';
 import { NotesView } from './NotesView';
 import { RecoilRoot } from 'recoil';
-const { Sider } = Layout;
+const { Sider, Footer } = Layout;
 
 const queryClient = new QueryClient();
 
@@ -13,18 +13,20 @@ export const App: React.FC = () => {
 
   return <QueryClientProvider client={queryClient}>
     <RecoilRoot>
-      <Layout className="app-layout">
+      <div className="app-layout">
         <Sider className="app-sider" breakpoint="lg" collapsedWidth="0" width={300}>
-          <Alert.ErrorBoundary>
-            <MainMenu onMeetingSelected={setSelectedMeetingPath} />
-          </Alert.ErrorBoundary>
+          <div className="app-siderContent">
+            <Alert.ErrorBoundary>
+              <MainMenu onMeetingSelected={setSelectedMeetingPath} />
+            </Alert.ErrorBoundary>
+          </div>
         </Sider>
         <div className="app-content ant-layout-content">
           <Alert.ErrorBoundary>
             <NotesView meetingPath={selectedMeetingPath} />
           </Alert.ErrorBoundary>
         </div>
-      </Layout>
+      </div>
     </RecoilRoot>
   </QueryClientProvider>;
 };
