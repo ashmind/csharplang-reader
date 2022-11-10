@@ -5,6 +5,46 @@
   display: grid;
   grid-template-rows: min-content 1fr;
   border-left: 2px solid #ccc;
+
+  code {
+    padding: 0 0.2em;
+  }
+
+  pre {
+    padding: 16px;
+  }
+}
+
+.notesView--light {
+  code {
+    background-color: rgba(175, 184, 193, 0.2);
+  }
+
+  pre {
+    background-color: #f6f8fa;
+  }
+}
+
+.notesView--dark {
+  color-scheme: dark;
+  background-color: #0d1117;
+  color: #c9d1d9;
+
+  h1, h2, h3, h4, h5, h6 {
+    color: inherit;
+  }
+
+  code {
+    background-color: rgba(110, 118, 129, 0.4);
+  }
+
+  pre {
+    background-color: #161b22;
+  }
+
+  button, button:hover, button:focus {
+    color: inherit;
+  }
 }
 
 .notesView-content {
@@ -21,15 +61,15 @@
   }
 }
 
-.notesView--empty {
-  font-size: 3vw;
-  font-weight: bold;
-  opacity: 0.4;
-}
-
 .notesView--empty,
 .notesView--loading {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.notesView-emptyText {
+  font-size: 3vw;
+  font-weight: bold;
+  opacity: 0.4;
 }

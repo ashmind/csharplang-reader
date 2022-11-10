@@ -4,7 +4,7 @@ import { groupMeetingsIntoTree } from './shared/groupMeetingsIntoTree';
 import type { NodeData } from './shared/NodeData';
 import { REPO } from './shared/repo';
 import { useOctokit } from './shared/useOctokit';
-import { useIsUnread } from './shared/readContext';
+import { useIsUnread } from './shared/readState';
 import { MenuItemTitle } from './MenuItemTitle';
 
 type MainMenuProps = {
@@ -32,9 +32,9 @@ export const MainMenu: React.FC<MainMenuProps> = ({ onMeetingSelected }) => {
 
     const { tree } = data.data;
     const meetingPaths = tree
+      .filter(t => t.path?.includes('meetings/') && (t.type === 'tree' || t.path?.endsWith('.md')))
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-      .map(n => n.path!)
-      .filter(p => p.includes('meetings/'));
+      .map(t => t.path!);
 
     return groupMeetingsIntoTree(meetingPaths);
   }, [data]);

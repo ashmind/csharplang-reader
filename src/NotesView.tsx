@@ -1,7 +1,8 @@
-import { Empty, Spin } from 'antd';
+import { Spin } from 'antd';
 import React, { useEffect, useMemo, useState } from 'react';
 import { NotesActions } from './NotesActions';
-import { useMarkAsRead } from './shared/readContext';
+import { useMarkAsRead } from './shared/readState';
+import { useTheme } from './shared/themeState';
 import { useGetContentAsHtml } from './shared/useGetContentAsHtml';
 
 type NotesViewProps = {
@@ -14,6 +15,7 @@ export const NotesView: React.FC<NotesViewProps> = ({ meetingPath }) => {
   const htmlObject = useMemo(() => html ? ({ __html: html } as const) : null, [html]);
 
   const markAsRead = useMarkAsRead();
+  const theme = useTheme();
 
   useEffect(() => {
     if (meetingPath && !isLoading && html && meetingPath !== lastMarkedAsRead) {
@@ -22,22 +24,21 @@ export const NotesView: React.FC<NotesViewProps> = ({ meetingPath }) => {
     }
   }, [meetingPath, isLoading, html, markAsRead, lastMarkedAsRead]);
 
+  const [stateName, content] = (() => {
+    if (!meetingPath)
+      return ['empty', <span key="_" className="notesView-emptyText">Please select notes in the left-hand menu.</span>] as const;
 
+    if (isLoading)
+      return ['loading', <Spin key="_" size='large' />] as const;
 
-  if (!meetingPath) {
-    return <div className="notesView notesView--empty">
-      Please select notes in the left-hand menu.
-    </div>;
-  }
+    return ['loaded', <>
+      <NotesActions meetingPath={meetingPath} />
+      {/* eslint-disable-next-line @typescript-eslint/no-non-null-assertion */}
+      <div className="notesView-content" dangerouslySetInnerHTML={htmlObject!} />
+    </>];
+  })();
 
-  if (isLoading)
-    return <div className="notesView notesView--loading">
-      <Spin size='large' />;
-    </div>;
-
-  return <div className="notesView">
-    <NotesActions meetingKey={meetingPath} />
-    {/* eslint-disable-next-line @typescript-eslint/no-non-null-assertion */}
-    <div className="notesView-content" dangerouslySetInnerHTML={htmlObject!} />
-  </div> ;
+  return <div className={`notesView notesView--${theme} notesView--${stateName}`}>
+    {content}
+  </div>;
 };
