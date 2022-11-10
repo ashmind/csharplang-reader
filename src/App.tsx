@@ -4,7 +4,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { MainMenu } from './MainMenu';
 import { NotesView } from './NotesView';
 import { RecoilRoot } from 'recoil';
-const { Sider, Footer } = Layout;
+const { Sider } = Layout;
 
 const queryClient = new QueryClient();
 
