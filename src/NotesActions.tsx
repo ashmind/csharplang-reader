@@ -26,7 +26,7 @@ export const NotesActions: React.FC<NotesActionsProps> = ({ meetingPath }) => {
       <GithubOutlined /> Open in GitHub
     </Button>
     <Button type="text" onClick={() => toggleTheme()}>
-      {theme === 'light' ? <><BulbOutlined /> Light mode</> : <><BulbFilled /> Dark mode</>}
+      {theme === 'dark' ? <><BulbOutlined /> Light mode</> : <><BulbFilled /> Dark mode</>}
     </Button>
   </div>;
 };
