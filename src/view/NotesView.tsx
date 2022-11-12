@@ -1,9 +1,9 @@
 import { Spin } from 'antd';
 import React, { useEffect, useMemo, useState } from 'react';
-import { NotesActions } from './NotesActions';
-import { useMarkAsRead } from './shared/readState';
-import { useTheme } from './shared/themeState';
-import { useGetContentAsHtml } from './shared/useGetContentAsHtml';
+import { NotesViewActions } from './NotesViewActions';
+import { useMarkAsRead } from '../shared/readState';
+import { useTheme } from '../shared/themeState';
+import { useGetContentAsHtml } from '../shared/useGetContentAsHtml';
 
 type NotesViewProps = {
   meetingPath: string | null;
@@ -32,7 +32,7 @@ export const NotesView: React.FC<NotesViewProps> = ({ meetingPath }) => {
       return ['loading', <Spin key="_" size='large' />] as const;
 
     return ['loaded', <>
-      <NotesActions meetingPath={meetingPath} />
+      <NotesViewActions meetingPath={meetingPath} />
       {/* eslint-disable-next-line @typescript-eslint/no-non-null-assertion */}
       <div className="notesView-content" dangerouslySetInnerHTML={htmlObject!} />
     </>];

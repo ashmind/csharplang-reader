@@ -10,7 +10,7 @@ Main goal is to provide read/unread state.
 * Read C# workig group notes
 * Tracking of read state (per device)
 
-Not much else, to keep the scope in check — if you miss something like "Mark all as read" or similar, please do contribute.
+Not much else, to keep the scope in check — if you miss something, please do contribute.
 
 ## Contributing
 

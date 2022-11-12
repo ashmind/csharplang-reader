@@ -1,0 +1,1 @@
+export type MenuItemFilter = 'all' | 'unread';

@@ -20,6 +20,14 @@ export const useIsUnread = () => {
   return (key: string) => !readKeys.has(key);
 };
 
+export const useMarkAllAsRead = () => {
+  const setReadKeys = useSetRecoilState(readKeysState);
+  return useCallback(
+    (allKeys: readonly string[]) => setReadKeys(new Set(allKeys)),
+    [setReadKeys]
+  );
+};
+
 export const useMarkAsRead = () => {
   const setReadKeys = useSetRecoilState(readKeysState);
   return useCallback(

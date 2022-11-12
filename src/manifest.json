@@ -1,0 +1,8 @@
+{
+    "short_name": "C# Lang Reader",
+    "name": "C# Lang Reader",
+    "start_url": ".",
+    "background_color": "#fff",
+    "theme_color": "#001529",
+    "display": "minimal-ui"
+}

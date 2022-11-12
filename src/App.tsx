@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Alert, Layout } from 'antd';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { MainMenu } from './MainMenu';
-import { NotesView } from './NotesView';
+import { MainMenu } from './menu/MainMenu';
+import { NotesView } from './view/NotesView';
 import { RecoilRoot } from 'recoil';
 const { Sider } = Layout;
 
@@ -32,7 +32,7 @@ export const App: React.FC = () => {
                }}>
           <div className="app-siderContent">
             <Alert.ErrorBoundary>
-              <MainMenu onMeetingSelected={setSelectedMeetingPath} />
+              <MainMenu onMeetingSelect={setSelectedMeetingPath} selectedMeetingPath={selectedMeetingPath} />
             </Alert.ErrorBoundary>
           </div>
         </Sider>
